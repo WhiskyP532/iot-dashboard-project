@@ -1,0 +1,108 @@
+body {
+    font-family: Arial;
+    background: #f0f2f5;
+    margin: 0;
+    text-align: center;
+}
+
+h1 {
+    margin: 20px;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.device {
+    width: 95%;
+    max-width: 600px;
+    margin: 10px;
+    padding: 15px;
+    border-radius: 15px;
+    background: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.device1 { border-top: 5px solid #4CAF50; }
+.device2 { border-top: 5px solid #2196F3; }
+
+.status {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.cards {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 15px;
+}
+
+.card {
+    background: #fafafa;
+    padding: 15px;
+    border-radius: 10px;
+    width: 30%;
+}
+
+canvas {
+    max-width: 100%;
+}
+
+@media (max-width: 600px) {
+    .cards {
+        flex-direction: column;
+    }
+    .card {
+        width: 90%;
+        margin: 5px auto;
+    }
+}
+
+.soil-box {
+    background: #e8f5e9;
+    border: 2px solid #4CAF50;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 15px 0;
+}
+
+.soil-box h1 {
+    font-size: 40px;
+    margin: 10px 0;
+    color: #2e7d32;
+}
+
+.time-filter {
+    margin: 10px 0;
+}
+
+.time-filter button {
+    padding: 6px 12px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #eee;
+}
+
+.time-filter button:hover {
+    background: #ccc;
+}
+
+:root {
+    /* Device 1 (โทนเขียว) */
+    --d1-temp: #ff7043;
+    --d1-temp-bg: rgba(255,112,67,0.1);
+
+    --d1-humid: #26a69a;
+    --d1-humid-bg: rgba(38,166,154,0.1);
+
+    /* Device 2 (โทนน้ำเงิน) */
+    --d2-temp: #ef5350;
+    --d2-temp-bg: rgba(239,83,80,0.1);
+
+    --d2-humid: #42a5f5;
+    --d2-humid-bg: rgba(66,165,245,0.1);
+}
