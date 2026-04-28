@@ -1,121 +1,72 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My IoT Dashboard</title>
+    <title>IoT Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <style>
-        body {
-            font-family: Arial;
-            text-align: center;
-            background: #f4f4f4;
-        }
-        .card {
-            background: white;
-            padding: 20px;
-            margin: 10px;
-            border-radius: 10px;
-        }
-        canvas {
-            max-width: 100%;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <h1>📊 IoT Dashboard</h1>
 
-<div class="card">
-    <h2>🌡 Temperature</h2>
-    <p id="temp">-</p>
+<div class="container">
+
+    <!-- ===== DEVICE 1 ===== -->
+    <div class="device device1">
+        <h2>🌱 TempHumid 01</h2>
+        <p class="status" id="status1">🟡 Checking...</p>
+
+        <!-- ⏱ Time Filter -->
+        <div class="time-filter">
+            <button onclick="setRange(1,'1h')">1H</button>
+            <button onclick="setRange(1,'1d')">1D</button>
+            <button onclick="setRange(1,'7d')">7D</button>
+        </div>
+
+        <div class="cards">
+            <div class="card"><h3 id="temp1">-</h3></div>
+            <div class="card"><h3 id="humid1">-</h3></div>
+        </div>
+
+        <!-- Soil -->
+        <div class="soil-box">
+            <h2>🌱 Soil</h2>
+            <h1 id="soil1">-</h1>
+        </div>
+
+        <!-- กราฟ -->
+        <canvas id="chartTemp1"></canvas>
+        <canvas id="chartHumid1"></canvas>
+    </div>
+
+    <!-- ===== DEVICE 2 ===== -->
+    <div class="device device2">
+        <h2>🌱 TempHumid 02</h2>
+        <p class="status" id="status2">🟡 Checking...</p>
+
+        <!-- ⏱ Time Filter -->
+        <div class="time-filter">
+            <button onclick="setRange(2,'1h')">1H</button>
+            <button onclick="setRange(2,'1d')">1D</button>
+            <button onclick="setRange(2,'7d')">7D</button>
+        </div>
+
+        <div class="cards">
+            <div class="card"><h3 id="temp2">-</h3></div>
+            <div class="card"><h3 id="humid2">-</h3></div>
+        </div>
+
+        <!-- กราฟ -->
+        <canvas id="chartTemp2"></canvas>
+        <canvas id="chartHumid2"></canvas>
+    </div>
+
 </div>
 
-<div class="card">
-    <h2>💧 Humidity</h2>
-    <p id="humid">-</p>
-</div>
-
-<div class="card">
-    <h2>🌱 Soil</h2>
-    <p id="soil">-</p>
-</div>
-
-<div class="card">
-    <h2>📈 Graph (Last 10 Values)</h2>
-    <canvas id="myChart"></canvas>
-</div>
-
-<script>
-const channelID = "2613419";
-const apiKey = "0X1T33UU6R1GYFTC";
-
-let chart;
-
-function getData() {
-    fetch(`https://api.thingspeak.com/channels/${channelID}/feeds.json?results=10&api_key=${apiKey}`)
-    .then(res => res.json())
-    .then(data => {
-
-        let feeds = data.feeds;
-
-        let temp = [];
-        let humid = [];
-        let soil = [];
-        let labels = [];
-
-        feeds.forEach(item => {
-            temp.push(item.field1);
-            humid.push(item.field2);
-            soil.push(item.field3);
-            labels.push(new Date(item.created_at).toLocaleTimeString());
-        });
-
-        // ค่า ล่าสุด
-        let last = feeds[feeds.length - 1];
-        document.getElementById("temp").innerText = last.field1 + " °C";
-        document.getElementById("humid").innerText = last.field2 + " %";
-        document.getElementById("soil").innerText = last.field3;
-
-        // วาดกราฟ
-        if(chart) chart.destroy();
-
-        const ctx = document.getElementById('myChart').getContext('2d');
-
-        chart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [
-                    {
-                        label: 'Temp',
-                        data: temp,
-                        borderWidth: 2
-                    },
-                    {
-                        label: 'Humidity',
-                        data: humid,
-                        borderWidth: 2
-                    },
-                    {
-                        label: 'Soil',
-                        data: soil,
-                        borderWidth: 2
-                    }
-                ]
-            }
-        });
-
-    });
-}
-
-// โหลด + รีเฟรช
-getData();
-setInterval(getData, 15000);
-
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
