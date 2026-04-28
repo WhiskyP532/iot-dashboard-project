@@ -96,7 +96,7 @@ async function getData() {
             l2.push(new Date(i.created_at).toLocaleTimeString());
         });
 
-        // 👉 LIMIT 20 จุ
+        // 👉 LIMIT 20 จุด
         const t2L = limitData(t2, l2);
         const h2L = limitData(h2, l2);
 
